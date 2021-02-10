@@ -1,0 +1,117 @@
+solution1:
+
+var data = {
+   helloworld: {
+       en: "Hello World!",
+       fr: "Bonjour Monde !"
+   }
+}
+
+//var lang = "fr";
+var lang = getLang();
+msg = data.helloworld[lang];
+
+
+===
+
+
+function update_text() {
+  var hay = getValue('hay');
+  var carrots = getValue('carrots');
+  var bells = getValue('bells');
+  var total = 50 * bells + 30 * hay + 10 * carrots;
+
+  hay = sprintf(pluralise('%s bushel of hay', '%s bushels of hay', hay), pretty_num(hay));
+  carrots = sprintf(pluralise('%s carrot', '%s carrots', carrots), pretty_num(carrots));
+  bells = sprintf(pluralise('%s shiny bell', '%s shiny bells', bells), pretty_num(bells));
+  var list = sprintf(_('%s, %s, and %s'), hay, carrots, bells);
+  var out = sprintf(_('You are ordering %s, at a total cost of <strong>%s</strong> gold pieces.'),
+  list, pretty_num(total));
+  out += ' ';
+  out += _('Thank you.');
+  document.getElementById('preview').innerHTML = out;
+}
+
+function sprintf(s) {
+  var bits = s.split('%');
+  var out = bits[0];
+  var re = /^([ds])(.*)$/;
+
+  for (var i = 1; i < bits.length; i++) {
+    p = re.exec(bits[i]);
+
+    if (!p || arguments[i]==null) 
+      continue;
+
+    if (p[1] == 'd') {
+      out += parseInt(arguments[i], 10);
+    } 
+    else if (p[1] == 's') {
+      out += arguments[i];
+    }
+    out += p[2];
+  }
+
+  return out;
+}
+
+var i18n = {
+  thousands_sep: ',',
+  "%s bushel of hay": '',
+  "%s bushels of hay": '',
+  "%s carrot": '',
+  "%s carrots": '',
+  "%s shiny bell": '',
+  "%s shiny bells": '',
+  "%s, %s, and %s": '',
+  "You are ordering %s, at a total cost of <strong>%s</strong> gold pieces.": '',
+  "Thank you.": ''
+};
+
+==============
+
+
+
+function getValue(e) {
+    var p = parseInt(document.getElementById(e).value, 10);
+    if (!p) return 0;
+    return p;
+}
+
+function pretty_num(n) {
+    n += '';
+    var o = '';
+    for (i=n.length; i>3; i-=3) {
+        o = ',' + n.slice(i-3, i) + o;
+    }
+    o = n.slice(0, i) + o;
+    return o;
+}
+
+function pluralise(n) {
+    if (n!=1) return 's';
+    return '';
+}
+
+function update_text() {
+    var hay = getValue('hay');
+    var carrots = getValue('carrots');
+    var bells = getValue('bells');
+    var total = 50 * bells + 30 * hay + 10 * carrots;
+    var out = 'You are ordering '
+        + pretty_num(hay) + ' bushel' + pluralise(hay) + ' of hay, '
+        + pretty_num(carrots) + ' carrot' + pluralise(carrots)
+        + ', and ' + pretty_num(bells) + ' shiny bell' + pluralise(bells)
+        + ', at a total cost of <strong>' + pretty_num(total)
+        + '</strong> gold pieces. Thank you.';
+    document.getElementById('preview').innerHTML = out;
+}
+
+window.onload = function() {
+    var inputs = document.getElementsByTagName('input');
+    for (i=0; i<inputs.length-2; i++) {
+        inputs[i].onchange = update_text;
+    }
+    document.forms[0].onsubmit = function() { return false; };
+};
+

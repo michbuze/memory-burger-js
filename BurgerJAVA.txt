@@ -1,0 +1,405 @@
+/*************************************************************
+ * Max Hart
+*************************************************************/
+import java.awt.*;
+import java.awt.event.*;
+import java.awt.image.BufferStrategy;
+import java.text.*;
+import java.io.*;
+import java.lang.*;
+import java.applet.*;
+import java.util.Random;
+import java.lang.reflect.Array;
+
+import javax.swing.*;
+import javax.imageio.*;
+
+import java.net.URL;
+
+/***********************************************************
+ * Game Class
+***********************************************************/
+@SuppressWarnings("unused")
+public class Game extends JApplet implements ActionListener
+  {
+	private static final long serialVersionUID = 1L;
+	
+	  private static ImageIcon Img;
+	  private static URL ImgURL;
+	
+static JFrame frame ;
+  GameField gameScreen;
+  JButton Button;
+
+  
+  for (int i = 0; i < 8; i++) {
+    String ImgGif = "";
+    ImgGif = i + ".gif";
+    ImgURL[i] = Game.class.getResource(ImgGif);
+  }
+  
+
+
+  public void init()
+    {
+      loadImages();
+      makeContent();
+    }
+
+  public void loadGraphics()
+  {
+    MediaTracker m = new MediaTracker(this);
+
+    if (fishURL != null)
+     fish = getImage(fishURL);
+
+    m.addImage(fish, 1);
+    m.addImage(powerPill, 2);
+    m.addImage(badDot, 3);
+    /* Explicitly wait for the image to load */
+    try
+    {
+      m.waitForAll();
+    }
+    /* Catch the exception */
+    catch( InterruptedException e )
+    {
+      System.out.println("Loading of the image was interrupted" );
+    }
+
+  }
+
+ 
+  public void loadImages() 
+  {
+    if (newImgURL != null)
+      newImg = new ImageIcon(newImgURL);
+  }
+
+  public JPanel makeToolBar()
+  {
+    JPanel toolBar = new JPanel(new FlowLayout(FlowLayout.LEFT));
+    
+    Dimension buttonSize = new Dimension(30, 30);
+    
+    
+    toolBar.add(newButton, BorderLayout.NORTH);
+    toolBar.add(startButton, BorderLayout.NORTH);
+    toolBar.add(stopButton, BorderLayout.NORTH);
+    toolBar.add(helpButton, BorderLayout.NORTH);
+
+    return toolBar;
+  }
+
+
+  public void updateScore(int inScore)
+  {
+    String output;
+    output = Integer.toString(inScore);
+    scoreBox.setText(output);
+  }
+
+  public Container makeContent()
+  {
+    //Set the layout for the grid
+    Container contentPane = getContentPane();
+    contentPane.setLayout(new BorderLayout());
+
+    
+    // contentPane.setOpaque(true);
+    return contentPane;
+  }
+
+  public void makeDialog(JPanel content, int width, int height)
+  {
+	// make a dialog (final so listener can use it)
+    final JDialog dialog = new JDialog(frame, "About Us");
+    
+    // define the close button so it actually closes the dialog
+    JButton closeButton = new JButton("Close");
+    // action of closing the dialog
+    closeButton.addActionListener(new ActionListener() 
+    {
+      public void actionPerformed(ActionEvent e) 
+      {
+        dialog.setVisible(false);
+        dialog.dispose();
+      }
+    });
+    
+    // set up the layout and add contents
+    JPanel aboutPane = new JPanel(new BorderLayout());
+    aboutPane.add(content, BorderLayout.EAST);
+    aboutPane.add(closeButton, BorderLayout.SOUTH);
+    aboutPane.setOpaque(true);
+    dialog.setContentPane(aboutPane);
+    
+    // final set up of the dialog
+    dialog.setSize(new Dimension(width, height));
+    dialog.setLocationRelativeTo(frame);
+    dialog.setVisible(true);
+  }
+
+  public JPanel rulesContent()
+  {
+    JPanel rulesPanel = new JPanel(new BorderLayout());
+	// all the text for the content
+    JLabel titleLabel = new JLabel("<html><strong>How To Play</strong>");
+	titleLabel.setHorizontalAlignment(JLabel.CENTER);
+	JLabel rulesLabel = new JLabel(
+    "<html><p align=center>"
+	+ "The player controls the fish. The fish is <br />"
+	+ "always in motion. Avoid the bad guys, eat <br />"
+	+ "the pellets. It's like Robots and PacMan  <br />"
+	+ "combined. This game could be better.");
+	rulesLabel.setHorizontalAlignment(JLabel.CENTER);
+	
+	rulesPanel.add(titleLabel, BorderLayout.NORTH);
+	rulesPanel.add(rulesLabel, BorderLayout.WEST);
+	
+	return rulesPanel;
+  }
+  
+  public JPanel aboutContent()
+  {
+    JPanel aboutPanel = new JPanel(new BorderLayout());
+	// all the text for the content
+	JLabel aboutLabel = new JLabel("<html><p align=center>"
+	  		            + "FishDot v1.0<br />"
+	   		            + "Copyright 2009<br />"
+	   		            + "Kelly Scott<br />"
+	   		            + "Max Hart");
+	aboutLabel.setHorizontalAlignment(JLabel.CENTER);
+	
+	aboutPanel.add(aboutLabel, BorderLayout.CENTER);
+	
+	return aboutPanel;
+  }
+
+  public void loseContent()
+  {
+    JOptionPane.showMessageDialog(frame, "Game Over.");
+  }
+
+  public static void main(String[] args)
+    {
+    //call runApp to make the JApplet
+    runApp(new Game(), 550, 400);
+    }
+
+  public static void runApp(JApplet applet, int width, int height)
+  {
+    // Acquiring the current Graphics Device and Graphics Configuration
+    GraphicsEnvironment graphEnv = GraphicsEnvironment.getLocalGraphicsEnvironment();
+    GraphicsDevice graphDevice = graphEnv.getDefaultScreenDevice();
+    GraphicsConfiguration graphicConf = graphDevice.getDefaultConfiguration();
+
+    //Set the frame
+    frame = new JFrame("FishDot");
+    frame.setIgnoreRepaint(true);
+    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+    frame.getContentPane().add(applet);
+    frame.setSize(width, height);
+    applet.init();
+    applet.start();
+    frame.setVisible(true);
+  }
+
+  public void actionPerformed(ActionEvent e)
+  {
+    if (e.getActionCommand().equals("About"))
+      makeDialog(aboutContent(), 200, 150);
+    else if (e.getActionCommand().equals("Rules"))
+    {
+      gameScreen.stop();
+      makeDialog(rulesContent(), 275, 200);
+    }
+      }
+  }
+}
+
+class GameField extends Canvas implements KeyListener, MouseListener
+{
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+Game thisGame;
+
+  int xOffset = 0;
+  int yOffset = 0;
+
+  //variables for random generator
+  Random randomNum = new Random();
+
+  // score and lives
+  static int score = 0;
+  float life = 1;
+
+  FishDot fishDot;
+  
+  public GameField(Image fish, Game inGame)
+  {
+    thisGame = inGame;
+    // set up fish dot
+    fishDot = new FishDot(fish, this, gridSize);
+    this.addKeyListener(this);
+	this.setFocusable(true);
+	this.requestFocusInWindow();
+  }
+  
+  public void newGame()
+  {
+    life = 1;
+    score = 0;
+    thisGame.updateScore(score);
+    thisGame.updateLives(life);
+
+    for(int i=0; i < Array.getLength(badDotArray); i++)
+      badDotArray[i].randMove();
+    for(int i=0; i < Array.getLength(powerPillArray); i++)
+      powerPillArray[i].randMove();
+
+    fishDot.reset();
+    this.stop();
+    this.repaint();
+  }
+
+  public void gameOver()
+  {
+    thisGame.loseContent();
+    this.newGame();
+  }
+
+  public void go()
+  {
+    if (fishThread == null)
+    {
+      fishThread = new Thread(fishDot);
+      fishDot.go();
+      fishThread.start();
+    }
+    for(int i=0; i < Array.getLength(badDotThread); i++)
+    {
+      badDotThread[i] = new Thread(badDotArray[i]);
+      badDotArray[i].go();
+      badDotThread[i].start();
+    }  
+  } 
+  public void stop()
+  {
+  }
+
+  
+  public void paint(Graphics g)
+  {
+    fishDot.draw(g, xOffset, yOffset);
+  }
+
+  public void hitTest()
+  {
+  }
+
+  
+  
+  public void keyPressed(KeyEvent e)
+  {
+    int id = e.getKeyCode();
+    if (id == KeyEvent.VK_LEFT)
+      fishDot.changeDirection(MoveableElement.LEFT);
+    else if (id == KeyEvent.VK_RIGHT)
+        fishDot.changeDirection(MoveableElement.RIGHT);
+    else if (id == KeyEvent.VK_UP)
+        fishDot.changeDirection(MoveableElement.UP);
+    else if (id == KeyEvent.VK_DOWN)
+        fishDot.changeDirection(MoveableElement.DOWN);
+  }
+  
+  public void keyReleased(KeyEvent e) {}
+  public void keyTyped(KeyEvent e) {}
+  
+  public void mouseExited(MouseEvent e) {}
+  public void mouseEntered(MouseEvent e) {}
+  public void mousePressed(MouseEvent e) {}
+  public void mouseClicked(MouseEvent e) {}
+  public void mouseReleased(MouseEvent e) {}
+}  // end of GameField class
+
+class DisplayableElement extends Canvas
+{
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+// size of grid cell (for calculating x,y position)
+  int gridSize;
+  int x, y;
+  Image img;
+
+  // random number generator
+  Random randNum = new Random();
+
+  
+  
+    
+  public void draw(Graphics g, int offsetX, int offsetY)
+  {
+    g.drawImage(img, (x*gridSize)+offsetX+1, 
+                     (y*gridSize)+offsetY+1, this);
+  }
+} // end of DisplayableElement class
+
+class FishDot extends MoveableElement implements Runnable
+{
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+GameField game;
+  
+  public FishDot(Image img, GameField pass, int gridSize)
+  {
+    super(img, 5, 5, gridSize, MoveableElement.RIGHT);
+    game = pass;
+    running = true;
+  }
+
+  public void reset()
+  {
+    x = 5;
+    y = 5;
+    direction = RIGHT;
+  }
+    
+  @SuppressWarnings("static-access")
+public void run()
+  {
+    while (running == true) 
+    {
+      move();
+      game.hitTest();
+      game.repaint(); //call paint
+      
+    }
+  } // end of run
+} // end of FishDot class
+
+  @SuppressWarnings("static-access")
+public void run()
+  {
+    while (running == true) 
+    {
+      move();
+      chaseFish(game.getFishX(), game.getFishY());
+      game.repaint(); //call paint
+      
+      try
+      {
+        Thread.currentThread().sleep(gameSpeed+speed);
+      }
+      catch (InterruptedException e) {}
+    }
+  } // end of run
+}

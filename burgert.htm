@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!--
+Web Burger - Mind game
+Copyright (C) Michel BUZE
+e-mail : michel.buze@gmail.com
+website : http://buze.michel.chez.com
+
+Ce programme est un logiciel libre: vous pouvez le redistribuer
+et/ou le modifier selon les termes de la "GNU General Public License",
+version 2 ou (à votre choix) toute version ultérieure.
+Voir : http://www.gnu.org/licenses/gpl.html
+//-->
+<html>
+<head>
+<title></title>
+<meta content="text/html" charset="UTF-8" http-equiv="Content-Type">
+</head>
+<body>
+<script type="text/javascript">
+<!--
+  if (parent.frames[0] == null) document.location = "burger.htm"
+
+  x = 10;
+  place = -200;
+  place2 = 200;
+  pass =0;
+  
+  function animtext() {
+    if (pass == 0) {
+      if (place2 != 0) {
+        texte1.left = (place = place + x);
+        texte2.left = (place2 = place2 - x);
+        tempoText = setTimeout('animtext()', 35);
+      } else {
+        pass = 1;
+        tempoText = setTimeout('animtext()', 5000);
+      }
+    } else {
+      if (place2 != 300) {
+        texte1.left = (place = place - x);
+        if (texte1.left < 0) texte1.display = none
+        texte2.left = (place2 = place2 + x);
+        tempoText = setTimeout('animtext()', 35);
+      } else {
+        texte1.display = "none"
+        texte2.display = "none"
+      }
+    } 
+  }
+  
+  TableNoms = new Array( "un hamburger",
+                         "une pizza",
+                         "des frites",
+                         "un soda",
+                         "un hot-dog",
+                         "une boule",
+                         "un donut",
+                         "un batonnet",
+                         "une tarte");
+  e = parent.frames[1].document.forms[0].elements
+  j = e[2].value
+
+  if (e[3].value != 0) {
+  document.write("<body style=\"margin-top:0\" background=\"soleil.jpg\"><B><FONT FACE=\"Comic Sans MS,Arial\" SIZE=5>",
+    "<img align=\"center\" width=\"89\" height=\"64\">",
+    "<span ID=texte1 STYLE=position:relative>&nbsp;Le client ",
+    j,
+    " voulait ",
+    TableNoms[e[0].value],
+    "</span><BR>",
+    "<img align=\"center\" width=\"89\" height=\"64\">",
+    "<span ID=texte2 STYLE=position:relative>&nbsp;Vous lui avez servi ", TableNoms[e[1].value],
+    "</span><BR>CLIQUEZ SUR LE BOUTON POUR REJOUER...<HR>")
+    parent.frames[1].location = "rejouer.htm"
+  } else {
+  document.write("<body style=\"margin-top:0\" background=\"soleil.jpg\"><B><FONT FACE=\"Comic Sans MS,Arial\" SIZE=\"5\">",
+    "<img align=\"center\" width=\"89\" height=\"64\">",
+    "<span ID=texte1 STYLE=position:relative>&nbsp;Le client ",2*j-1," commande ",TableNoms[e[0].value],"</span><BR>",
+    "<img align=\"center\" width=\"89\" height=\"64\">",
+    "<span ID=texte2 STYLE=position:relative>&nbsp;Le client ",2*j  ," commande ",TableNoms[e[1].value],
+    "</span><BR>Que servez-vous au client ", j ," ?")
+  }
+
+  // Lorsque l'on enregistre la page sur le disque dur, Internet Explorer créé un répertoire par frame :
+  // burgerm_fichiers, burgert_fichiers, rejouer_fichiers.
+
+  parent.frames[0].document.images[0].src = parent.frames[1].document.images[e[0].value].src
+  parent.frames[0].document.images[1].src = parent.frames[1].document.images[e[1].value].src
+
+if (document.getElementById) {
+  var texte1 = document.getElementById("texte1").style
+  var texte2 = document.getElementById("texte2").style
+  window.onload = animtext;
+}
+//-->	
+</script>
+</body>
+</html>

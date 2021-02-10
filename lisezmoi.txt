@@ -1,0 +1,54 @@
+Fichier lisezmoi.txt du jeu Web Burger.
+Copyright (C) Michel BUZE
+e-mail : michbuze@club-internet.fr
+site web : http://michbuze.club.fr
+
+Web Burger est un petit jeu de mémoire amusant, dont les règles sont simples
+mais qui est plus difficile qu'il n'y parait.
+
+La Règle : Des commandes arrivent deux par deux, vous y répondez une par une.
+Au début arrivent la commande 1 une 2. Une fois servie la commande 1,
+les commandes 3 et 4 arrivent et vous servez la 2,
+puis la 5 et 6 et vous servez la 3... Peu à peu, tout va s'embrouiller,
+et vous perdez si vous vous trompez !
+
+Le fichier archive burger.zip (16Ko) contient l'ensemble des fichiers qui
+constituent le jeu.
+Pour l'utiliser, vous devez extraire tous les fichiers dans un répertoire
+(64Ko au total), puis ouvrir le fichier "burger.htm" avec votre navigateur
+(Il n'est pas nécessaire d'être connecté à Internet pour jouer).
+
+Ce jeu est entièrement gratuit, vous êtes LIBRE de le diffuser autour de vous !
+
+Pour décompresser les fichiers, il faut un logiciel de décompression zip. 
+Pour Windows, on trouvera sur le site http://izarc.free.fr
+le logiciel izarc pour le faire (il est gratuit et en français). 
+Vous pouvez aussi consulter ma page d'informations sur les formats d'archive : 
+http://michbuze.club-internet.fr/123/compress.htm (ou http://z-compress.fr.fm)
+
+N'importe quel navigateur peut convenir (Internet Explorer, Firefox,
+Mozilla, Netscape, Opera ou autre), il suffit qu'il soit capable d'interpréter
+le Javascript et eventuellement d'afficher des images GIF.
+
+Les fichiers GIF sont les images utilisées par le jeu,
+et les fichiers burgerm.htm, burgert.htm, rejouer.htm sont utilisés
+par le fichier "burger.htm" (si on les ouvre, ils afficheront la page
+"burger.htm").
+
+Le fichier src.htm peut être ouvert pour afficher plus d'informations,
+il n'est pas nécessaire pour le jeu, ni le fichier lisezmoi.txt
+
+AMUSEZ VOUS BIEN... et n'oubliez surtout pas :
+
+Ce programme est un logiciel LIBRE :
+vous pouvez le redistribuer et/ou le modifier ! 
+(selon les termes de la "GNU General Public License", version 2
+ou (à votre choix) toute version ultérieure)
+
+Traduction de la GPL non officielle (en anglais) :
+http://www.linux-france.org/article/these/gpl.html
+
+GPL (en anglais) : http://www.gnu.org/licenses/gpl.html
+
+Définition du copyleft (en français) :
+http://www.gnu.org/copyleft/copyleft.fr.html

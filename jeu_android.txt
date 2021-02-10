@@ -1,0 +1,14 @@
+- I) Sur votre pC :
+-- 1) Ouvrir le lien http://buze.michel.chez.com/MemoryBurgerAndroid.apk
+-- 2) ENREGISTER (ne pas ouvrir...) ce fichier
+-- 3) Envoyez vous un mail sur votre compte Google Mail avec en pièce jointe ce fichier, et titre : JEU ou autre 
+
+- II) Sur votre teléphone : 
+-- 1) vérifiez Paramètres/Sécurité/Administration/ d'avoir coché "Sources inconnues" (Sinon cochez la case...)
+-- 2) Ouvrez gmail : a) actualisez pour récupérer vos derniers mails.
+-- b) Ouvrez le mail que vous vous êtes envoyé
+-- c) Cliquez sur la pièce jointe
+-- d) Acceptez l'installation, Ouvrez l'application et JOUEZ !
+
+
+

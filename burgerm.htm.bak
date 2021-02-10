@@ -1,0 +1,81 @@
+<HEAD>
+<STYLE>
+A:hover {
+COLOR: #ff00ff; TEXT-DECORATION: none;
+BACKGROUND-COLOR: c0e6ff;
+}
+A:link {
+COLOR: #0000ff; TEXT-DECORATION: none;
+}
+
+</STYLE>
+<BODY BACKGROUND=../soleil.jpg LINK=f00000>
+<FORM><INPUT TYPE=hidden><INPUT TYPE=hidden><INPUT TYPE=hidden><INPUT TYPE=hidden value=0></FORM>
+
+
+<SCRIPT>
+  function Commande() {
+    i++
+    TableChoix[2*i-2] = Math.round(Math.random() * 100000000) % 9
+    TableChoix[2*i-1] = Math.round(Math.random() * 100000000) % 9
+    document.forms[0].elements[0].value = TableChoix[2*i-2]
+    document.forms[0].elements[1].value = TableChoix[2*i-1]
+    document.forms[0].elements[2].value = i
+    parent.frames[0].location="burgert.htm"
+  }
+
+  function Teste(reponse) {
+    if (document.forms[0].elements[3].value != 1) {
+      if (reponse == TableChoix[i-1]) {
+        Commande()
+      } else {
+        document.forms[0].elements[0].value = TableChoix[i-1]
+        document.forms[0].elements[1].value = reponse
+        document.forms[0].elements[2].value = i
+        document.forms[0].elements[3].value = 1
+        parent.frames[0].location="burgert.htm"
+      }
+    }
+  }
+
+</SCRIPT>
+  <TABLE>
+  <TR>
+    <TD ALIGN=CENTER><A HREF="javascript:Teste(0)"><img src="0.gif" border=0 width=89 height=64><H4>Un hamburger</A></TD>
+    <TD ALIGN=CENTER><A HREF="javascript:Teste(1)"><img src="1.gif" border=0 width=89 height=64><H4>Une pizza</A></TD>
+    <TD ALIGN=CENTER><A HREF="javascript:Teste(2)"><img src="2.gif" border=0 width=89 height=64><H4>Des frites</A></TD>
+    <TD ALIGN=CENTER><A HREF="javascript:Teste(3)"><img src="3.gif" border=0 width=89 height=64><H4>Un soda</A></TD>
+    <TD ALIGN=CENTER><A HREF="javascript:Teste(4)"><img src="4.gif" border=0 width=89 height=64><H4>Un hot-dog</A></TD>    
+    <TD><font face="arial" style="font-size:14px">
+    &nbsp;Vous pouvez enregister cette page<br>
+    &nbsp;sur votre disque dur pour y jouer<br>
+    &nbsp;hors connexion !
+	</td>
+  <TR>
+    <TD ALIGN=CENTER><A HREF="javascript:Teste(5)"><img src="5.gif" border=0 width=89 height=64><H4>Une boule</A>
+    <TD ALIGN=CENTER><A HREF="javascript:Teste(6)"><img src="6.gif" border=0 width=89 height=64><H4>Un donut</A>
+    <TD ALIGN=CENTER><A HREF="javascript:Teste(7)"><img src="7.gif" border=0 width=89 height=64><H4>Un batonnet</A>
+    <TD ALIGN=CENTER><A HREF="javascript:Teste(8)"><img src="8.gif" border=0 width=89 height=64><H4>Une tarte</A>
+    <TD>
+    <TD>
+    <TABLE BORDER=6 CELLSPACING=0 CELLPADDING=0>
+    <TD BGCOLOR=f0f0c0><FONT FACE="MS SANS SERIF" SIZE=4 color=ff0000><CENTER>
+<!-- Mon compteur de votes WebOrama -->
+<A HREF="http://vote.weborama.fr/fcgi-bin/vote.fcgi?8740" target=new>Voter pour ce jeu au WebOrama</A>
+<!-- fin de mon code-->
+    <TR><TD BGCOLOR=99f099><CENTER>
+    <A target=new HREF="http://perso.club-internet.fr/michbuze"><FONT FACE="MS SANS SERIF" SIZE=4>
+    Le site de l'auteur (Michel BUZE)</A><BR>
+    </TD><TR><TD BGCOLOR=c0c0f0><FONT FACE="MS SANS SERIF" SIZE=4><CENTER>
+    <A HREF="mailto:michbuze@club-internet.fr">
+    e-mail: michbuze@club-internet.fr</A><BR>
+    <TR><TD BGCOLOR=99f0c0><FONT FACE="MS SANS SERIF" SIZE=4><CENTER>
+    <A target=new HREF=http://services.hit-parade.com/hp-livredor.asp?site=a32693>
+    Laisser un mot sur le LIVRE D'OR</A>
+    </TABLE>
+  </TABLE>
+<SCRIPT>
+  TableChoix = new Array()
+  i=0
+  Commande()
+</SCRIPT>
